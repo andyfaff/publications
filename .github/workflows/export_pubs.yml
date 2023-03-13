@@ -22,7 +22,8 @@ jobs:
         sudo apt-get install --no-install-recommends texlive-latex-extra texlive-base cb2bib
 
     - name: run export
-      /usr/share/cb2bib/c2btools/bib2pdf my_publications.bib pubs.pdf
+      run: |
+        /usr/share/cb2bib/c2btools/bib2pdf my_publications.bib pubs.pdf
 
     - uses: actions/upload-artifact@v1
       with:
