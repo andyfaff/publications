@@ -1,0 +1,30 @@
+name: Export pubs
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * 0'
+
+
+jobs:
+
+  export_pubs:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v3
+
+    - name: install latex
+      run: |
+        sudo apt-get update
+        sudo apt-get install --no-install-recommends texlive-latex-extra texlive-base cb2bib
+
+    - name: run export
+      /usr/share/cb2bib/c2btools/bib2pdf my_publications.bib pubs.pdf
+
+    - uses: actions/upload-artifact@v1
+      with:
+        name: pubs
+        path: pubs.pdf
